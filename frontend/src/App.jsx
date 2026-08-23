@@ -2,7 +2,7 @@ import AppRoutes from "@/routes/AppRoutes"
 
 const App = () => {
   return  (
-    <div data-theme="sunset">
+    <div data-theme="dracula">
       <AppRoutes/>
     </div>
   )
