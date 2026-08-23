@@ -18,7 +18,16 @@ app.get("/",(req,res)=>{
 
 app.use("/api/notes", notesRoutes);
 
-app.listen(PORT,()=>{
-     connectDB(); 
-    console.log(`server is running on http://localhost:${PORT}`)
-})
+const startServer  = async()=>{
+    try{
+        await connectDB();
+        app.listen(PORT,()=>{
+            console.log(`server is running on http://localhost:${PORT}`)
+        })
+    } catch(error){
+        console.error("Error at startServer: ", error);
+        process.exit(1);
+    }
+}
+
+startServer();
