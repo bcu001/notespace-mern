@@ -1,11 +1,12 @@
 import { Edit } from 'lucide-react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { normalizeDate } from '@/lib/utils'
 import { Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import api from '@/lib/axios'
 
 const NoteCard = ({note, setNotes}) => {
+  const navigate = useNavigate()
 
   const handleDelete = async(e,id)=>{
     e.preventDefault();
@@ -22,6 +23,11 @@ const NoteCard = ({note, setNotes}) => {
 
   }
 
+  const handleEditNav = (e,id)=>{
+    e.preventDefault();
+    navigate(`/note/${id}`);
+  }
+
   return (
      <Link to={`/note/${note._id}`}
      className='card bg-base-300 hover:shadow-lg transition-all duration-200 border-t-4 border-solid border-base-content/30'
@@ -32,7 +38,7 @@ const NoteCard = ({note, setNotes}) => {
         <div className='flex justify-between items-center mt-2'>
             <span className='text-sm text-base-content/60'>{normalizeDate(note.createdAt)}</span>
             <div className='flex items-center gap-2'>
-                <button><Edit className='size-4'/></button>
+                <button onClick={(e)=>handleEditNav(e,note._id)} className='btn btn-ghost btn-xs'><Edit className='size-4'/></button>
                 <button onClick={(e)=>handleDelete(e,note._id)} className='btn btn-ghost btn-xs text-error'><Trash2 className='size-4'/></button>
             </div>
         </div>
